@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>올팍 길잡이 — 올림픽공원 방문 전 묻고 확인하기</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>올팍 길잡이</h1>
+  <p class="lead">올림픽공원에 가기 전에 궁금한 것을 물어보세요. 답마다 한국체육산업개발 공공데이터 원문을 함께 보여 드립니다.</p>
+</header>
+
+<main>
+  <section class="ask" aria-labelledby="ask-h">
+    <h2 id="ask-h">묻기</h2>
+    <form id="ask-form" autocomplete="off">
+      <label for="q" class="sr">질문</label>
+      <input id="q" name="q" type="search" placeholder="예: 토요일 저녁 공연 보러 차 가져가도 될까요?" required>
+      <button type="submit">답 찾기</button>
+    </form>
+    <div class="examples" aria-label="예시 질문">
+      <button type="button" data-q="토요일 저녁 공연 보러 차 가져가도 될까요?">토요일 저녁 공연, 차 가져가도 될까</button>
+      <button type="button" data-q="강아지 데리고 들어가도 되나요?">강아지 데리고 가도 되나</button>
+      <button type="button" data-q="공연 보고 지갑을 잃어버렸어요">공연 후 분실물</button>
+      <button type="button" data-q="지하철로 가는 방법">지하철로 가는 법</button>
+    </div>
+    <div id="answer" aria-live="polite"></div>
+  </section>
+
+  <section class="park" aria-labelledby="park-h">
+    <h2 id="park-h">주차 예보</h2>
+    <p class="note">실시간 잔여 면수가 아니라 과거 기록으로 계산한 방문 전 참고치입니다. 2024년 7월 입출차 기록 215,528건으로 요일·시각별 주차 중인 차량 수를 계산하고, 월별주차현황(2023∼2025년)으로 방문 월의 수요 크기를 보정했습니다. 전체 주차면은 FAQ 기준 약 2,800대입니다.</p>
+    <div class="controls">
+      <label>방문 월
+        <select id="mo"></select>
+      </label>
+      <label>요일
+        <select id="wd"></select>
+      </label>
+      <label>도착 시각
+        <select id="hr"></select>
+      </label>
+      <label class="check"><input id="ev" type="checkbox"> 차가 몰린 주말 기준(큰 공연·행사 날 참고)</label>
+    </div>
+    <div id="forecast" aria-live="polite"></div>
+    <div class="chart-wrap">
+      <canvas id="chart" width="720" height="220" aria-label="시각별 주차 중 차량 수 그래프" role="img"></canvas>
+    </div>
+    <details>
+      <summary>예상 주차요금 계산</summary>
+      <div class="fee">
+        <label>머무를 시간
+          <select id="stay">
+            <option value="60">1시간</option><option value="120">2시간</option>
+            <option value="180" selected>3시간</option><option value="240">4시간</option>
+            <option value="300">5시간</option>
+          </select>
+        </label>
+        <label>할인
+          <select id="disc">
+            <option value="0">없음</option>
+            <option value="0.5">50% (경차·장애인·국가유공자·저공해·3자녀 이상)</option>
+            <option value="0.25">25% (2자녀)</option>
+          </select>
+        </label>
+        <p id="fee-out" class="fee-out"></p>
+        <p class="note">FAQ 「주차장 이용 및 요금은 어떻게 되나요」의 일반승용차 10분당 600원 기준입니다. 10분 미만은 올려 계산했으며, 실제 정산 단위는 현장 기준을 따릅니다.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="events" aria-labelledby="ev-h">
+    <h2 id="ev-h">공연 목록</h2>
+    <p class="note" id="ev-note"></p>
+    <ol id="ev-list"></ol>
+  </section>
+</main>
+
+<footer>
+  <p>데이터: 공공데이터포털 한국체육산업개발주식회사 — 자주 묻는 질문정보, 올림픽공원 입출차 정보, 주차장 혼잡도 정보, 월별주차현황, 영문 공연정보. 공식 안내는 올림픽공원 홈페이지를 확인하세요.</p>
+</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
